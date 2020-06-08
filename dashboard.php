@@ -31,10 +31,17 @@ if ($_SESSION["name"]){
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 } else {
-
+    $page = isset($_GET["page"]) ? $_GET["page"] : 1;
+    $limit = isset($_POST["limit-records"]) ? $_POST["limit-records"] : 2;
+    $start = ($page - 1) * $limit;
     $sql = "SELECT * FROM test WHERE userid='" . $_SESSION["id"] . "'";//id='emailid'
     $result = $conn->query($sql);
-
+    $totalRecord = $result->num_rows;
+    $sql1 = "SELECT * FROM test WHERE userid='" . $_SESSION["id"] . "' LIMIT {$start},{$limit}";
+    $result1 = $conn->query($sql1);
+    $pages = ceil($totalRecord / $limit);
+    $previous = $page - 1;
+    $next = $page + 1;
 }
 ?>
 <header class="l-header">
@@ -96,7 +103,7 @@ if ($conn->connect_error) {
 <main class="l-main">
     <div class="content-wrapper content-wrapper--with-bg">
         <?php
-        while ($row = $result->fetch_array()) {
+        while ($row = $result1->fetch_assoc()) {
             ?>
             <div class="list-group">
                 <a href="#" class="list-group-item">
@@ -137,29 +144,40 @@ if ($conn->connect_error) {
             <?php
         }
         ?>
+        <!----------- pagination button --------------------------------------->
+        <?php if ($totalRecord > 0){ ?>
         <div id="pagination-item">
             <ul class="pagination">
-                <li class="page-item"><a class="page-link" href="dashboard.php?page=<?php ?>">Previous</a></li>
-
-                <li class="page-item"><a class="page-link" href="#">1</a></li>
-                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                <li class="page-item"><a class="page-link" href="#">3</a></li>
-
-                <li class="page-item"><a class="page-link" href="#">Next</a></li>
+                <?php if ($page != 1) { ?>
+                    <li class="page-item"><a class="page-link" href="pagination.php.php?page=<?php echo $previous; ?>">Previous</a>
+                    </li>
+                <?php } ?>
+                <?php for ($x = 1; $x <= $pages; $x++) { ?>
+                    <li class="page-item"><a class="page-link"
+                                             href="pagination.php?page=<?php echo $x; ?>"><?= $x; ?></a></li>
+                <?php }
+                if ($pages > $page) {
+                    ?>
+                    <li class="page-item"><a class="page-link" href="pagination.php?page=<?= $next; ?>">Next</a></li>
+                <?php } ?>
             </ul>
         </div>
     </div>
+    <?php } ?>
+    <!-- ------------pagination button end ---------------------------------->
+    <!-- ------------set dynamic limit of record---------------------------- -->
     <div class="text-center" style="margin-top: 20px; " class="col-md-2">
-        <form method="post" action="#">
-            <select name="limit-records" id="limit-records">
+        <form method="post">
+            <select name="limit-records" id="limit-records" onchange='this.form.submit()'>
                 <option disabled="disabled" selected="selected">---Limit Records---</option>
-                <?php foreach ([10, 100, 500, 1000, 5000] as $limit): ?>
+                <?php foreach ([2, 5, 10, 100, 500, 1000, 5000] as $limit): ?>
                     <option <?php if (isset($_POST["limit-records"]) && $_POST["limit-records"] == $limit) echo "selected" ?>
                             value="<?= $limit; ?>"><?= $limit; ?></option>
                 <?php endforeach; ?>
             </select>
         </form>
     </div>
+    <!-- -------------set dynamic limit end -->
 </main>
 <!-- scripting for pagination button that perform active class assigne to a selected li -->
 <script>
@@ -169,17 +187,14 @@ if ($conn->connect_error) {
     });
 </script>
 
-</script>
-
-<
-script
-src = '//production-assets.codepen.io/assets/common/stopExecutionOnTimeout-b2a7b3fe212eaa732349046d8416e00a9dec26eb7fd347590fbced3ab38af52e.js' ></script>
+<script src='//production-assets.codepen.io/assets/common/stopExecutionOnTimeout-b2a7b3fe212eaa732349046d8416e00a9dec26eb7fd347590fbced3ab38af52e.js'></script>
 <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js'></script>
 <script src='https://use.fontawesome.com/2188c74ac9.js'></script>
 <script src='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js'></script>
 <?php
 } else echo "<h1>Please login first .</h1>";
 $conn->close();
+
 ?>
 </body></html>
 <script src="js/dashboard.js"></script>
