@@ -149,35 +149,36 @@ if ($conn->connect_error) {
         <div id="pagination-item">
             <ul class="pagination">
                 <?php if ($page != 1) { ?>
-                    <li class="page-item"><a class="page-link" href="pagination.php.php?page=<?php echo $previous; ?>">Previous</a>
+                    <li class="page-item"><a class="page-link" href="dashboard.php?page=<?php echo $previous; ?>">Previous</a>
                     </li>
                 <?php } ?>
                 <?php for ($x = 1; $x <= $pages; $x++) { ?>
                     <li class="page-item"><a class="page-link"
-                                             href="pagination.php?page=<?php echo $x; ?>"><?= $x; ?></a></li>
+                                             href="dashboard.php?page=<?php echo $x; ?>"><?= $x; ?></a></li>
                 <?php }
                 if ($pages > $page) {
                     ?>
-                    <li class="page-item"><a class="page-link" href="pagination.php?page=<?= $next; ?>">Next</a></li>
+                    <li class="page-item"><a class="page-link" href="dashboard.php?page=<?= $next; ?>">Next</a></li>
                 <?php } ?>
             </ul>
         </div>
+        <!-- ------------pagination button end ---------------------------------->
+        <!-- ------------set dynamic limit of record---------------------------- -->
+        <div class="text-center" style="margin-top: 20px; " class="col-md-2">
+            <form method="post">
+                <select name="limit-records" id="limit-records" onchange='this.form.submit()'>
+                    <option disabled="disabled" selected="selected">---Limit Records---</option>
+                    <?php foreach ([2, 5, 10, 100, 500, 1000, 5000] as $limit): ?>
+                        <option <?php if (isset($_POST["limit-records"]) && $_POST["limit-records"] == $limit) echo "selected" ?>
+                                value="<?= $limit; ?>"><?= $limit; ?></option>
+                    <?php endforeach; ?>
+                </select>
+            </form>
+        </div>
+        <!-- -------------set dynamic limit end -->
     </div>
     <?php } ?>
-    <!-- ------------pagination button end ---------------------------------->
-    <!-- ------------set dynamic limit of record---------------------------- -->
-    <div class="text-center" style="margin-top: 20px; " class="col-md-2">
-        <form method="post">
-            <select name="limit-records" id="limit-records" onchange='this.form.submit()'>
-                <option disabled="disabled" selected="selected">---Limit Records---</option>
-                <?php foreach ([2, 5, 10, 100, 500, 1000, 5000] as $limit): ?>
-                    <option <?php if (isset($_POST["limit-records"]) && $_POST["limit-records"] == $limit) echo "selected" ?>
-                            value="<?= $limit; ?>"><?= $limit; ?></option>
-                <?php endforeach; ?>
-            </select>
-        </form>
-    </div>
-    <!-- -------------set dynamic limit end -->
+
 </main>
 <!-- scripting for pagination button that perform active class assigne to a selected li -->
 <script>
