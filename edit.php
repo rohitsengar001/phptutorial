@@ -3,7 +3,7 @@ include 'header.php';
 include 'footer.php';
 include 'connection.php';
 include 'blog_conn.php';
-
+session_start();
 $conn->close();
 
 ?>
@@ -40,7 +40,7 @@ $conn->close();
 </head>
 
 <body>
-
+<?php if($_SESSION["name"]){?>
 <h1>
     <blockquote>&ldquo;Blogging with yourself &rdquo;</blockquote>
 </h1>
@@ -70,10 +70,9 @@ $conn->close();
 <br>
 <br>
 <br>
-
+<?php } else echo "please login first<br><a href='login.php'>Login</a>";?>
 
 <!--***********************************script*********************************-->
-
 
 </body>
 

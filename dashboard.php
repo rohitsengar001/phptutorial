@@ -70,15 +70,19 @@ if ($conn->connect_error) {
 </header>
 <div class="l-sidebar">
     <div class="logo">
-        <div class="logo__txt">O</div>
+        <a href="dashboard.php"><i class="fa fa-home" style="font-size:30px;color:white"></i></a>
+        <!--  -- <div class="logo__txt">O</div>-->
     </div>
     <div class="l-sidebar__content">
         <nav class="c-menu js-menu">
             <ul class="u-list">
-                <li class="c-menu__item is-active" data-toggle="tooltip" title="Proposals">
-                    <div class="c-menu__item__inner"><i class="fa fa-file-text-o"></i>
-                        <div class="c-menu-item__title"><span>Proposals</span></div>
-                    </div>
+                <li class="c-menu__item is-active" data-toggle="tooltip" title="Write Blog">
+                    <a href="doblog.php">
+                        <div class="c-menu__item__inner"><i class="fa fa-file-text-o"></i>
+                            <div class="c-menu-item__title"><span>Write Blog</span></div>
+                        </div>
+                    </a>
+
                 </li>
                 <li class="c-menu__item has-submenu" data-toggle="tooltip" title="History">
                     <div class="c-menu__item__inner"><i class="fa fa-history"></i>
@@ -137,6 +141,9 @@ if ($conn->connect_error) {
                         <button type="button" class="btn btn-primary btn-sm btn-block"
                                 onclick="document.location = 'blogview.php?id=<?php echo $row['id']; ?>'">Open
                         </button>
+                        <button type="button" class="btn btn-primary btn-sm btn-block"
+                                onclick="document.location = 'new_edit.php?id=<?php echo $row['id']; ?>'">Edit
+                        </button>
                     </div>
                 </a>
 
@@ -152,10 +159,17 @@ if ($conn->connect_error) {
                     <li class="page-item"><a class="page-link" href="dashboard.php?page=<?php echo $previous; ?>">Previous</a>
                     </li>
                 <?php } ?>
-                <?php for ($x = 1; $x <= $pages; $x++) { ?>
-                    <li class="page-item"><a class="page-link"
-                                             href="dashboard.php?page=<?php echo $x; ?>"><?= $x; ?></a></li>
-                <?php }
+                <?php for ($x = 1; $x <= $pages; $x++) {
+                    if ($page == $x) {
+                        ?>
+                        <li class="page-item active"><a class="page-link"
+                                                        href="dashboard.php?page=<?php echo $x; ?>"><?= $x; ?></a></li>
+                    <?php } else {
+                        ?>
+                        <li class="page-item"><a class="page-link"
+                                                 href="dashboard.php?page=<?php echo $x; ?>"><?= $x; ?></a></li>
+                    <?php }
+                }//for loop end
                 if ($pages > $page) {
                     ?>
                     <li class="page-item"><a class="page-link" href="dashboard.php?page=<?= $next; ?>">Next</a></li>
@@ -181,12 +195,6 @@ if ($conn->connect_error) {
 
 </main>
 <!-- scripting for pagination button that perform active class assigne to a selected li -->
-<script>
-    $("ul li").on("click", function () {
-        $("li").removeClass("active");
-        $(this).addClass("active");
-    });
-</script>
 
 <script src='//production-assets.codepen.io/assets/common/stopExecutionOnTimeout-b2a7b3fe212eaa732349046d8416e00a9dec26eb7fd347590fbced3ab38af52e.js'></script>
 <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js'></script>
@@ -195,7 +203,6 @@ if ($conn->connect_error) {
 <?php
 } else echo "<h1>Please login first .</h1>";
 $conn->close();
-
 ?>
 </body></html>
 <script src="js/dashboard.js"></script>
