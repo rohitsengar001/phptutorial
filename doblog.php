@@ -9,6 +9,7 @@ session_start();
     <title>BLOGGING PAGE</title
     <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
     <link rel="stylesheet" href="css/dashboard.css">
+    <link rel="stylesheet" href="css/skeleton_card.css">
     <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
     <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
     <link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css'>
@@ -44,11 +45,11 @@ session_start();
 <?php
 if ($_SESSION["name"]){
 ?>
+<div class="demo"></div> <!-- skeleton preloader body -->
 <header class="l-header">
     <div class="l-header__inner clearfix">
         <div class="c-header-icon js-hamburger">
-            <div class="hamburger-toggle"><span class="bar-top"></span><span class="bar-mid"></span><span
-                        class="bar-bot"></span></div>
+            <div class="hamburger-toggle"><span class="bar-top"></span><span class="bar-mid"></span><span class="bar-bot"></span></div>
         </div>
         <div class="c-header-icon has-dropdown"><span class="c-badge c-badge--header-icon animated shake">12</span><i
                     class="fa fa-bell"></i>
@@ -104,7 +105,6 @@ if ($_SESSION["name"]){
     </div>
 </div>
 <!------------ slidebar end --------------->
-</body>
 <main class="l-main">
     <div class="content-wrapper content-wrapper--with-bg">
 
@@ -120,7 +120,6 @@ if ($_SESSION["name"]){
                           style="margin-left: 49px;margin-block-end: auto;"></textarea>
             </label>
             <br>
-
             <label for="brief">Subject :
                 <textarea cols="30" id="text_subject" name="fsubject" rows="2" style="margin-bottom: -13px;"></textarea>
             </label>
@@ -131,7 +130,7 @@ if ($_SESSION["name"]){
             <?php
             include 'ck_plugin.php';//textarea also inherit from the 'plugins.php' which id="editor" & name="fcontent" ;fcontent connected with data base
             ?>
-
+            <br>
             <p><input type="submit" value="Submit"></p>
         </form>
         <!-- -----------blog form connection end----- -->
@@ -145,5 +144,13 @@ if ($_SESSION["name"]){
 <script src='https://use.fontawesome.com/2188c74ac9.js'></script>
 <script src='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js'></script>
 </body>
+<!-- -----------------------------------------skeleton preloader jqery ------------------>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script>
+    jQuery(window).load(function () {
+        jQuery(".demo").fadeOut(500);
+    });
+</script>
+<!-- ----------------------------------------skeleton proloader jqery end---------------->
 <?php } else echo 'please login first<br><h2><a href="login.php">LOGIN</a></h2>'; ?>
 </html>

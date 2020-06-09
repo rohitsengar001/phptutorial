@@ -604,7 +604,7 @@ main.l-main .page-title {
 
 a.list-group-item {
     height: auto;
-    min-height: 120px;
+    min-height: 130px;
 }
 
 a.list-group-item.active small {
