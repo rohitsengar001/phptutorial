@@ -17,7 +17,7 @@
 
 </head>
 
-<body class="sidebar-is-reduced">
+<body class="sidebar-is-reduced">   
 <header class="l-header">
     <div class="l-header__inner clearfix">
         <div class="c-header-icon js-hamburger">

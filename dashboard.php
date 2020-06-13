@@ -7,7 +7,6 @@ require 'connection.php';
 ?>
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
@@ -32,20 +31,50 @@ if ($_SESSION["name"]) {
     if ($conn->connect_error) {
         die("Connection failed: " . $conn->connect_error);
     } else {
-        $page = isset($_GET["page"]) ? $_GET["page"] : 1;
-        $limit = isset($_POST["limit-records"]) ? $_POST["limit-records"] : 2;
-        $start = ($page - 1) * $limit;
-        $sql = "SELECT * FROM test WHERE userid='" . $_SESSION["id"] . "'";//id='emailid'
-        $result = $conn->query($sql);
-        $totalRecord = $result->num_rows;
-        $sql1 = "SELECT * FROM test WHERE userid='" . $_SESSION["id"] . "' LIMIT {$start},{$limit}";
-        $result1 = $conn->query($sql1);
-        $pages = ceil($totalRecord / $limit);
-        $previous = $page - 1;
-        $next = $page + 1;
+        $i = 0;
+
+        if (isset($_POST['key'])) {
+            $key = $_POST['key'];
+            $page = isset($_GET["page"]) ? $_GET["page"] : 1;
+            $limit = isset($_POST["limit-records"]) ? $_POST["limit-records"] : 2;
+            $start = ($page - 1) * $limit;
+            $query = "SELECT * FROM test WHERE userid='" . $_SESSION['id'] . "' AND ";
+            $terms = explode(" ", $key);// convert $key into arrary and each term saved into array with using blank splitter
+            foreach ($terms as $each) {
+                $i++;
+                if ($i == 1) {
+                    $query .= "title LIKE '%$each%' ";
+                } else {
+                    $query .= "OR title LIKE '%$each%' ";
+                }
+                $result = $conn->query($query);//execute the query
+                $totalRecord=$result->num_rows;
+                $query.="LIMIT {$start},{$limit} ";
+                $result1=$conn->query($query);
+                $pages = ceil($totalRecord / $limit);
+                $previous = $page - 1;
+                $next = $page + 1;
+            }
+        } elseif(!isset($_POST['key'])) {
+            $page = isset($_GET["page"]) ? $_GET["page"] : 1;
+            $limit = isset($_POST["limit-records"]) ? $_POST["limit-records"] : 2;
+            $start = ($page - 1) * $limit;
+            $sql = "SELECT * FROM test WHERE userid='" . $_SESSION["id"] . "'";//id='emailid'
+            $result = $conn->query($sql);
+            $totalRecord = $result->num_rows;
+            $sql1 = "SELECT * FROM test WHERE userid='" . $_SESSION["id"] . "' LIMIT {$start},{$limit}";
+            $result1 = $conn->query($sql1);
+            $pages = ceil($totalRecord / $limit);
+            $previous = $page - 1;
+            $next = $page + 1;
+        }
+
+    else
+        echo 'please type in search box';
+
     }
     ?>
-    <div class="demo"></div> <!-- skeleton preloader body -->
+
     <header class="l-header">
         <div class="l-header__inner clearfix">
             <div class="c-header-icon js-hamburger">
@@ -60,9 +89,12 @@ if ($_SESSION["name"]) {
                     <div class="c-dropdown__content"></div>
                 </div>
             </div>
-            <div class="c-search">
-                <input class="c-search__input u-input" placeholder="Search..." type="text"/>
-            </div>
+            <form action="dashboard.php" method="post">
+                <div class="c-search">
+                    <input class="c-search__input u-input" placeholder="Search..." type="text" name="key"/>
+                    <input type="submit" value="submit">
+                </div>
+            </form>
             <div style="margin-left: 522px;"><?php echo $_SESSION['id']; ?></div>
             <div class="header-icons-group">
                 <a href="logout.php">
@@ -76,6 +108,7 @@ if ($_SESSION["name"]) {
             <a href="dashboard.php"><i class="fa fa-home" style="font-size:30px;color:white"></i></a>
             <!--  -- <div class="logo__txt">O</div>-->
         </div>
+
         <div class="l-sidebar__content">
             <nav class="c-menu js-menu">
                 <ul class="u-list">
@@ -111,6 +144,7 @@ if ($_SESSION["name"]) {
             <?php
             while ($row = $result1->fetch_assoc()) {
                 ?>
+                <div class="demo"></div> <!-- skeleton preloader body -->
                 <div class="list-group">
                     <a href="#" class="list-group-item">
                         <div class="media col-md-3">
@@ -212,7 +246,8 @@ $conn->close();
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 <script>
     jQuery(window).load(function () {
-        jQuery(".demo").fadeOut(1500);
+        jQuery(".demo").fadeOut(1000);
+
     });
 </script>
 <!-- ----------------------------------------skeleton proloader jqery end---------------->
