@@ -19,7 +19,7 @@ $conn->close();
 <?php
 
 // Redirect browser
-header("refresh:2;url=newlook.php");
+header("refresh:10;url=newlook.php");
 
 exit;
 ?>

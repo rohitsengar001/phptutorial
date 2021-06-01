@@ -85,7 +85,7 @@
     <!-- NAVBAR  -->
     <div id="navbar">
         <a class="active" href="home.php">Home</a>
-        <a href="about.php">Blog</a>
+        <a href="dashboard.php">Blog</a>
         <a href="newlook.php">New Look</a>
     </div>
    

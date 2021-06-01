@@ -1,6 +1,6 @@
 <?php
-include 'connection.php';
-require 'blog_conn.php';
+include_once 'connection.php';
+require_once 'blog_conn.php';
 include 'header.php';
 include 'table_css.php';
 
