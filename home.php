@@ -1,8 +1,8 @@
 <!---@include files-->
 <?php
 include 'header.php';
-include 'footer.php';
 include 'content.php';
+include 'footer.php';
 ?>
 <!DOCTYPE html>
 <html>

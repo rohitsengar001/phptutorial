@@ -11,12 +11,10 @@ if ($conn->query($sql) === TRUE) {
     echo "Record updated successfully";
     echo '<h2><a href="newlook.php">home<h2>';
 } else {
-    echo "Error updating record: " . $conn->error;
+    echo "Error in updating record: " . $conn->error;
 }
 
 $conn->close();
-?>
-<?php
 
 // Redirect browser
 header("refresh:10;url=newlook.php");
