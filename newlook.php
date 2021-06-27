@@ -3,12 +3,8 @@ include 'connection.php';
 require 'get_data.php';
 include 'header.php';
 include 'table_css.php';
-
-
 $conn->close();
 ?>
-
-
 <!doctype html>
 <html lang="en">
 <head>
@@ -18,9 +14,7 @@ $conn->close();
     <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
     <meta name="generator" content="Jekyll v4.0.1">
     <title>Blog Template · Bootstrap</title>
-
     <link rel="canonical" href="https://getbootstrap.com/docs/4.5/examples/blog/">
-
     <!-- Bootstrap core CSS -->
     <!--<link href="..\assets\dist\css\bootstrap.css" rel="stylesheet">-->
     <!-- Latest compiled and minified CSS -->
@@ -35,13 +29,11 @@ $conn->close();
             -ms-user-select: none;
             user-select: none;
         }
-
         @media (min-width: 768px) {
             .bd-placeholder-img-lg {
                 font-size: 3.5rem;
             }
         }
-
         .blog-post p {
             font-family: medium-content-serif-font, Georgia, Cambria, "Times New Roman", Times, serif;
             font-weight: 400;
@@ -50,7 +42,6 @@ $conn->close();
             letter-spacing: -0.001em;
             line-height: 30px;
         }
-
     </style>
     <!-- Custom styles for this template -->
     <link href="https://fonts.googleapis.com/css?family=Playfair+Display:700,900" rel="stylesheet">
@@ -88,7 +79,6 @@ $conn->close();
             <p class="lead mb-0"><a href="#" class="text-white font-weight-bold">Continue reading...</a></p>
         </div>
     </div>
-
     <!--repeating designing------------>
     <?php
     while ($row = $result->fetch_assoc()) {
@@ -115,25 +105,19 @@ $conn->close();
     }
     ?>
     <!------repeating designing end-------------->
-
     <main role="main" class="container">
         <div class="row">
             <div class="col-md-8 blog-main">
                 <h3 class="pb-4 mb-4 font-italic border-bottom">
                     From the Firehose
                 </h3>
-
-
             </div><!-- /.blog-main -->
-
             <aside class="col-md-4 blog-sidebar">
                 <div class="p-4 mb-3 bg-light rounded">
                     <h4 class="font-italic">About</h4>
                     <p class="mb-0">Etiam porta <em>sem malesuada magna</em> mollis euismod. Cras mattis consectetur
                         purus sit amet fermentum. Aenean lacinia bibendum nulla sed consectetur.</p>
                 </div>
-
-
                 <div class="p-4">
                     <h4 class="font-italic">Elsewhere</h4>
                     <ol class="list-unstyled">
@@ -143,9 +127,7 @@ $conn->close();
                     </ol>
                 </div>
             </aside><!-- /.blog-sidebar -->
-
         </div><!-- /.row -->
-
     </main><!-- /.container -->
     <br><br>
     <?php

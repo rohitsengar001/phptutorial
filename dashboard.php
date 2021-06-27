@@ -35,7 +35,7 @@ require_once 'connection.php';
             if (isset($_POST['key'])) {
                 $key = $_POST['key'];
                 $page = isset($_GET["page"]) ? $_GET["page"] : 1;
-                $limit = isset($_POST["limit-records"]) ? $_POST["limit-records"] : 2;
+                $limit = isset($_POST["limit-records"]) ? $_POST["limit-records"] : 5;
                 $start = ($page - 1) * $limit;
                 $query = "SELECT * FROM test WHERE userid='" . $_SESSION['id'] . "' AND ";
                 $terms = explode(" ", $key); // convert $key into arrary and each term saved into array with using blank splitter
@@ -56,7 +56,7 @@ require_once 'connection.php';
                 }
             } elseif (!isset($_POST['key'])) {
                 $page = isset($_GET["page"]) ? $_GET["page"] : 1;
-                $limit = isset($_POST["limit-records"]) ? $_POST["limit-records"] : 2;
+                $limit = isset($_POST["limit-records"]) ? $_POST["limit-records"] : 5;
                 $start = ($page - 1) * $limit;
                 $sql = "SELECT * FROM test WHERE userid='" . $_SESSION["id"] . "'"; //id='emailid'
                 $result = $conn->query($sql);
@@ -85,7 +85,7 @@ require_once 'connection.php';
                 <form action="dashboard.php" method="post">
                     <div class="c-search">
                         <input class="c-search__input u-input" placeholder="Search..." type="text" name="key" />
-                        <input type="submit" value="submit">
+                        <input type="submit" value="submit" hidden>
                     </div>
                 </form>
                 <div style="margin-left: 522px;"><?php echo $_SESSION['id']; ?></div>
@@ -207,7 +207,7 @@ require_once 'connection.php';
                         <form method="post">
                             <select name="limit-records" id="limit-records" onchange='this.form.submit()'>
                                 <option disabled="disabled" selected="selected">---Limit Records---</option>
-                                <?php foreach ([2, 5, 10, 100, 500, 1000, 5000] as $limit) : ?>
+                                <?php foreach ([5, 10, 100, 500, 1000, 5000] as $limit) : ?>
                                     <option <?php if (isset($_POST["limit-records"]) && $_POST["limit-records"] == $limit) echo "selected" ?> value="<?= $limit; ?>"><?= $limit; ?></option>
                                 <?php endforeach; ?>
                             </select>

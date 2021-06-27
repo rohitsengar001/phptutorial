@@ -1,4 +1,5 @@
 <?php
+header('Access-Control-Allow-Method:GET');
 include '/xampp/htdocs/project/html_header.php';
 include '/xampp/htdocs/project/connection.php';
 if ($conn->connect_error)
