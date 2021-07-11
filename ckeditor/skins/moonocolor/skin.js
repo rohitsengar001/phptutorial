@@ -31,8 +31,8 @@ For this skin, the following tasks are achieved in this file:
 // used on config.skin to tell the editor to use the skin.
 //
 // This is the only mandatory property to be defined in this file.
-CKEDITOR.skin.name = 'moonocolor';
-
+CKEDITOR.skin.name = '#0066ff';
+// config.uiColor = "#0066ff"
 // 2. Register browser specific skin files
 // -----------------------------------------
 // (http://docs.cksource.com/CKEditor_4.x/Skin_SDK/Browser_Hacks)

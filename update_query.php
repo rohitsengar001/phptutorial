@@ -15,7 +15,9 @@ if ($conn->query($sql) === TRUE) {
 }
 
 $conn->close();
-
+echo '<div class="container align-middle">
+    <img src="./img/dribbble-success.gif" alt="successfully updated" class="my-5 mx-5 text-center">
+</div';
 // Redirect browser
 header("refresh:10;url=newlook.php");
 

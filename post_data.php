@@ -16,12 +16,15 @@ if ($conn->connect_error) {
   value(?,?,?,?)");
     $stmt->bind_param("ssss", $title, $subject, $content,$email);
     $stmt->execute();
-    echo "successfully your blog has been added";
-    echo "<br><a href='newlook.php'>home</a>";
+    // echo "successfully your blog has been added";
+    // echo "<br><a href='newlook.php'>home</a>";
+    echo '<div class="container">
+    <img src="./img/success.gif" alt="successfully updated" class="my-5 mx-5 text-center">
+</div';
     $stmt->close();
     $conn->close();
 }
 ?>
 <?php
-header("refresh:2;url=newlook.php");
+header("refresh:5;url=newlook.php");
 ?>
